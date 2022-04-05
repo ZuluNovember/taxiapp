@@ -1,0 +1,7 @@
+database: 
+  address: "mongodb+srv://taksiapp:taksi4848@cluster0.dwvba.mongodb.net/driver?retryWrites=true&w=majority"
+  name: "test"
+server:
+  endPoint: 8000
+  runMode: "debug"
+  acceptAddress : "localhost"

@@ -1,0 +1,95 @@
+basePath: /
+definitions:
+  api.Location:
+    properties:
+      lat:
+        maximum: 90
+        minimum: -90
+        type: number
+      lon:
+        maximum: 180
+        minimum: -180
+        type: number
+    required:
+    - lat
+    - lon
+    type: object
+  app.Response:
+    properties:
+      data:
+        type: any
+      msg:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: zulunovember.c@gmail.com
+    name: Eniz Coban
+  description: Sample driver matching API
+  title: Driver API
+  version: "1.0"
+paths:
+  /driver/add:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Coordinate
+        in: body
+        name: coordinate
+        required: true
+        schema:
+          $ref: '#/definitions/api.Location'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: Add a driver to mongodb with lon and lat values
+  /driver/import:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: Import coordinates in Coordinates.csv file to mongo
+  /driver/match:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Coordinate
+        in: body
+        name: coordinate
+        required: true
+        schema:
+          $ref: '#/definitions/api.Location'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: Find a driver close to given coordinates
+      tags:
+      - driver
+swagger: "2.0"

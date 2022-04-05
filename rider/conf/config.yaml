@@ -1,0 +1,4 @@
+server:
+  endPoint: 8080
+  runMode: "debug"
+  jwtSecret : "topsecretsecret"

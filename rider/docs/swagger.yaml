@@ -1,0 +1,79 @@
+basePath: /
+definitions:
+  api.Location:
+    properties:
+      lat:
+        maximum: 90
+        minimum: -90
+        type: number
+      lon:
+        maximum: 180
+        minimum: -180
+        type: number
+    required:
+    - lat
+    - lon
+    type: object
+  app.Response:
+    properties:
+      data:
+        type: any
+      msg:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: zulunovember.c@gmail.com
+    name: Eniz Coban
+  description: Sample matching API
+  title: Rider API
+  version: "1.0"
+paths:
+  /auth:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: Authenticate user and sends a jwt as response
+      tags:
+      - Auth
+  /rider/match:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Coordinate
+        in: body
+        name: coordinate
+        required: true
+        schema:
+          $ref: '#/definitions/api.Location'
+      - description: Jwt string
+        in: query
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: Find a driver close to given coordinates
+      tags:
+      - rider
+swagger: "2.0"
